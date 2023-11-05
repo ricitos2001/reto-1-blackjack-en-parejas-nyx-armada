@@ -88,6 +88,9 @@ if __name__=="__main__":
                 jugador=False
             elif seleccion=='2':
                 turno=repartir_cartasjugador(manojugador)
+            else:
+                seleccionerrorea="solo esta permitido introducir 1 o 2\n"
+                print (seleccionerrorea)
             # el jugador coje una carta (se repite el proceso de reparto)
         if total(manojugador)>16:
         # el distribuidor no hace nada
