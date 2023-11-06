@@ -12,7 +12,5 @@ from src.blackjack import crear_resultado
         ([7, 'J'],[7, 'J'],"\ntu tienes [7, 'J'] para un total de 17 puntos y el distribuidor tiene [7, 'J'] para un total de 17 puntos\nempate!"),
     ]
 )
-def test_crear_funcion_params(manojugador,manodistribuidor,mensaje):
+def test_crear_resultado_params(manojugador,manodistribuidor,mensaje):
     assert crear_resultado(manojugador,manodistribuidor)==mensaje
-
-#[2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A', 'J', 'Q', 'K', 'A', 'J', 'Q', 'K', 'A', 'J', 'Q', 'K', 'A']
