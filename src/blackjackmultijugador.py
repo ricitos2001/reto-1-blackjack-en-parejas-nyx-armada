@@ -86,10 +86,10 @@ if __name__=="__main__":
             print(mensajejugador)
             if distribuidor:
                 selecciondistribuidor=input("opcion 1: permanecer\nopcion 2: atacar\nelije una opcion: ")
-                if selecciondistribuidor==1:
+                if selecciondistribuidor=='1':
                     # el distribuidor no hace nada
                     distribuidor=False
-                elif selecciondistribuidor==2:
+                elif selecciondistribuidor=='2':
                     # el distribuidor coje una carta
                     turno=repartir_cartasjugador(manojugador)
                 else:
@@ -101,10 +101,10 @@ if __name__=="__main__":
             print(mensajedistribuidor)
             if jugador:
                 seleccionjugador=input("opcion 1: permanecer\nopcion 2: atacar\nelije una opcion: ")
-                if seleccionjugador==1:
+                if seleccionjugador=='1':
                     # el jugador no hace nada
                     jugador=False
-                elif seleccionjugador==2:
+                elif seleccionjugador=='2':
                     # el distribuidor coje una carta
                     turno=repartir_cartasjugador(manojugador)
                 else:
@@ -116,7 +116,7 @@ if __name__=="__main__":
                 turno=repartir_cartasdistribuidor(manodistribuidor)
             elif total(distribuidor)>16:
                 totaljugador=False
-            elif total(distribuidor)>16:
+            elif total(distribuidor)<16:
                 turno=repartir_cartasjugador(manojugador)
             if total(manojugador)>=21:
                 jugador=False
