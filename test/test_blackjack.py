@@ -1,17 +1,6 @@
 import pytest
-from src.blackjackdefinitivo import iniciar_modo
-from src.blackjackdefinitivo import crear_resultadosolitario
-from src.blackjackdefinitivo import crear_resultadomultijugador
-@pytest.mark.parametrize(
-    "modo,mododejuego",
-    [
-        (1,"iniciando modo solitario"),
-        (2,"iniciando modo multijugador")
-    ]
-)
-def test_iniciar_modo_params(modo,mododejuego):
-    assert iniciar_modo(modo)==mododejuego
 
+from src.blackjack import iniciar_modo
 @pytest.mark.parametrize(
     "modo,mododejuego",
     [
@@ -21,6 +10,61 @@ def test_iniciar_modo_params(modo,mododejuego):
 )
 def test_iniciar_modo_params(modo,mododejuego):
     assert iniciar_modo(modo)==mododejuego
+
+from src.blackjack import crear_cubierta
+@pytest.mark.parametrize(
+    "numeros,letras,cubierta",
+    [
+        ("23456789","JQKA","23456789JQKA23456789JQKA23456789JQKA23456789JQKA"),
+    ]
+)
+def test_crear_cubierta_params(numeros,letras,cubierta):
+    assert crear_cubierta(numeros,letras)==cubierta
+
+
+
+from src.blackjack import revelar_mano
+@pytest.mark.parametrize(
+    "manodistribuidor,manojugador,mensajedistribuidor",
+    [
+        ([6,'Q'],[7,'A'],"distribuidor tiene 6 y X\ntu tienes [7, 'A'] para un total de 18 puntos"), 
+    ]
+)
+def test_revelar_mano_params(manodistribuidor,manojugador,mensajedistribuidor):
+    assert revelar_mano(manodistribuidor,manojugador)==mensajedistribuidor
+
+from src.blackjack import revelar_manodistribuidor
+@pytest.mark.parametrize(
+    "manodistribuidor,mensajedistribuidor",
+    [
+        ([6,'Q'],"\ndistribuidor tiene 6 y X")
+    ]
+)
+def test_revelar_manodistribuidor_params(manodistribuidor,mensajedistribuidor):
+    assert revelar_manodistribuidor(manodistribuidor)==mensajedistribuidor
+
+from src.blackjack import revelar_manojugador
+@pytest.mark.parametrize(
+    "manojugador,mensajejugador",
+    [
+        ([6,'Q'],"\njugador tiene 6 y X"),
+    ]
+)
+def test_revelar_manojugador_params(manojugador,mensajejugador):
+    assert revelar_manojugador(manojugador)==mensajejugador
+
+
+from src.blackjack import crear_total
+@pytest.mark.parametrize(
+    "turno,total",
+    [
+        (['K', 'A'],21),
+    ]
+)
+def test_crear_total_params(turno,total):
+    assert crear_total(turno)==total
+
+from src.blackjack import crear_resultadosolitario
 @pytest.mark.parametrize(
     "manojugador,manodistribuidor,resultadosolitario",
     [
@@ -36,6 +80,7 @@ def test_iniciar_modo_params(modo,mododejuego):
 def test_crear_resultado_params(manojugador,manodistribuidor,resultadosolitario):
     assert crear_resultadosolitario(manojugador,manodistribuidor)==resultadosolitario
 
+from src.blackjack import crear_resultadomultijugador
 @pytest.mark.parametrize(
     "manojugador,manodistribuidor,resultadomultijugador",
     [

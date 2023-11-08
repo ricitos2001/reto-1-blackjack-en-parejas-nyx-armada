@@ -30,24 +30,39 @@ def repartir_cartasdistribuidor(distribuidor,cubierta):
     cubierta=crearcubierta.replace(carta,"",1)
     return distribuidor,cubierta
 
-# checkeo del ganador
-def revelar_mano_distribuidor(manodistribuidor):
+def revelar_mano(manodistribuidor,manojugador):
     if len(manodistribuidor)==2:
         revelacionmanodistribuidor= manodistribuidor[0]
-        return revelacionmanodistribuidor
+        mensajedistribuidor="distribuidor tiene "+str(revelacionmanodistribuidor)+" y X\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos" 
+        return mensajedistribuidor
     elif len(manodistribuidor)>2:
         revelacionmanodistribuidor=manodistribuidor[0],manodistribuidor[1]
-        return revelacionmanodistribuidor
+        mensajedistribuidor="distribuidor tiene "+str(revelacionmanodistribuidor)+" y X\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos" 
+        return mensajedistribuidor
 
-def revelar_mano_jugador(manojugador):
+# revelar mano jugador
+def revelar_manojugador(manojugador):
     if len(manojugador)==2:
         revelacionmanojugador=manojugador[0]
-        return revelacionmanojugador
+        mensajejugador="\njugador tiene "+str(revelacionmanojugador)+" y X"
+        return mensajejugador
     elif len(manojugador)>2:
-        revelacionmanojugador=manojugador[0],manojugador[1]
-        return revelacionmanojugador
+        mensajejugador="\njugador tiene "+str(revelacionmanojugador)+" y X"
+        return mensajejugador
 
-def total(turno):
+# revelar mano distribuidor
+def revelar_manodistribuidor(manodistribuidor):
+    if len(manodistribuidor)==2:
+        revelacionmanodistribuidor= manodistribuidor[0]
+        mensajedistribuidor="\ndistribuidor tiene "+str(revelacionmanodistribuidor)+" y X"
+        return mensajedistribuidor
+    elif len(manodistribuidor)>2:
+        revelacionmanodistribuidor=manodistribuidor[0],manodistribuidor[1]
+        mensajedistribuidor="\ndistribuidor tiene "+str(revelacionmanodistribuidor)+" y X" 
+        return mensajedistribuidor
+
+# definicion crear turno
+def crear_total(turno):
     total=0
     cara="JQK"
     for i in turno:
@@ -65,49 +80,49 @@ def total(turno):
 
 # resultados
 def crear_resultadosolitario(manojugador,manodistribuidor):
-    if total(manojugador)==21:
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nBlackjack: has ganado!"
+    if crear_total(manojugador)==21:
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nBlackjack: has ganado!"
         return resultadosolitario
-    elif total(manodistribuidor)==21:
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nBlackjack: ditribuidor gana!"
+    elif crear_total(manodistribuidor)==21:
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nBlackjack: ditribuidor gana!"
         return resultadosolitario
-    elif total(manojugador)>21:
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nhas reventado! distribuidor gana!"
+    elif crear_total(manojugador)>21:
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nhas reventado! distribuidor gana!"
         return resultadosolitario
-    elif total(manodistribuidor)>21:
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\ndistribuidor revienta! has ganado!"
+    elif crear_total(manodistribuidor)>21:
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\ndistribuidor revienta! has ganado!"
         return resultadosolitario
-    elif 21-total(manojugador)<21-total(manodistribuidor):
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nhas ganado!"
+    elif 21-crear_total(manojugador)<21-crear_total(manodistribuidor):
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nhas ganado!"
         return resultadosolitario
-    elif 21-total(manodistribuidor)<21-total(manojugador):
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\ndistribuidor gana!"
+    elif 21-crear_total(manodistribuidor)<21-crear_total(manojugador):
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\ndistribuidor gana!"
         return resultadosolitario
-    elif 21-total(manojugador)==21-total(manodistribuidor):
-        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nempate!"
+    elif 21-crear_total(manojugador)==21-crear_total(manodistribuidor):
+        resultadosolitario="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nempate!"
         return resultadosolitario
 
 def crear_resultadomultijugador(manojugador,manodistribuidor):
-    if total(manojugador)==21:
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nBlackjack: jugador gana!"
+    if crear_total(manojugador)==21:
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nBlackjack: jugador gana!"
         return resultadomultijugador
-    elif total(manodistribuidor)==21:
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nBlackjack: distribuidor gana!"
+    elif crear_total(manodistribuidor)==21:
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nBlackjack: distribuidor gana!"
         return resultadomultijugador
-    elif total(manojugador)>21:
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\njugador revienta! distribuidor gana!"
+    elif crear_total(manojugador)>21:
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\njugador revienta! distribuidor gana!"
         return resultadomultijugador
-    elif total(manodistribuidor)>21:
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\ndistribuidor revienta! jugador gana!"
+    elif crear_total(manodistribuidor)>21:
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\ndistribuidor revienta! jugador gana!"
         return resultadomultijugador
-    elif 21-total(manojugador)<21-total(manodistribuidor):
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\njugador gana!"
+    elif 21-crear_total(manojugador)<21-crear_total(manodistribuidor):
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\njugador gana!"
         return resultadomultijugador
-    elif 21-total(manodistribuidor)<21-total(manojugador):
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\ndistribuidor gana!"
+    elif 21-crear_total(manodistribuidor)<21-crear_total(manojugador):
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\ndistribuidor gana!"
         return resultadomultijugador
-    elif 21-total(manojugador)==21-total(manodistribuidor):
-        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(total(manodistribuidor))+" puntos\nempate!"
+    elif 21-crear_total(manojugador)==21-crear_total(manodistribuidor):
+        resultadomultijugador="\ntu tienes "+str(manojugador)+" para un total de "+str(crear_total(manojugador))+" puntos y el distribuidor tiene "+str(manodistribuidor)+" para un total de "+str(crear_total(manodistribuidor))+" puntos\nempate!"
         return resultadomultijugador
 
 if __name__=="__main__":
@@ -134,17 +149,14 @@ if __name__=="__main__":
                 for i in range(2):
                     # el distribuidor coje dos cartas
                     manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
+                    print(manodistribuidor, cubierta)
                     # el jugador coje dos cartas
                     manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
                 # se revela la mano del distribuidor
                 while jugador or distribuidor:
-                    revelacionmanodistribuidor=revelar_mano_distribuidor(manodistribuidor)
-                    mensajedistribuidor="distribuidor tiene "+str(revelacionmanodistribuidor)+" y X"
-                    mensajejugador="tu tienes "+str(manojugador)+" para un total de "+str(total(manojugador))+" puntos" 
-                    # se imprime la mano del distribuidor
+                    mensajedistribuidor=revelar_mano(manodistribuidor,manojugador)
+                    # se imprimen las manos del distribuidor y del jugador
                     print(mensajedistribuidor)
-                    # se imprime la mano del jugador
-                    print (mensajejugador)
                     # elige una opcion
                     if jugador:
                         seleccion=input("opcion 1: permanecer\nopcion 2: atacar\nelije una opcion: ")
@@ -157,16 +169,16 @@ if __name__=="__main__":
                         else:
                             seleccionerrorea="solo esta permitido introducir 1 o 2. intentalo de nuevo\n"
                             print (seleccionerrorea)
-                    if total(manojugador)>16:
+                    if crear_total(manojugador)>16:
                         # el distribuidor no hace nada
                         distribuidor=False
                     else:
                         # el distribuidor coje una carta (se repite el proceso de reparto)
                         manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
                     # el jugador coje dos cartas
-                    if total(manojugador)>=21:
+                    if crear_total(manojugador)>=21:
                         jugador=False
-                    elif total(manodistribuidor)>=21:
+                    elif crear_total(manodistribuidor)>=21:
                         distribuidor=False
                 resultadosolitario=crear_resultadosolitario(manojugador,manodistribuidor)
                 print (resultadosolitario)
@@ -191,8 +203,7 @@ if __name__=="__main__":
                     manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
                 while jugador or distribuidor:
                     # se revela la mano del jugador
-                    revelacionmanojugador=revelar_mano_jugador(manojugador)
-                    mensajejugador="\njugador tiene "+str(revelacionmanojugador)+" y X"
+                    mensajejugador=revelar_manojugador(manojugador)
                     print(mensajejugador)
                     # distribuidor elige una opcion
                     if distribuidor:
@@ -207,7 +218,7 @@ if __name__=="__main__":
                             seleccionerrorea="solo esta permitido introducir 1 o 2. intentalo de nuevo\n"
                             print (seleccionerrorea)
                     # se revela la mano del distribuidor
-                    revelacionmanodistribuidor=revelar_mano_distribuidor(manodistribuidor)
+                    revelacionmanodistribuidor=revelar_manodistribuidor(manodistribuidor)
                     mensajedistribuidor="\ndistribuidor tiene "+str(revelacionmanodistribuidor)+" y X"
                     print(mensajedistribuidor)
                     if jugador:
@@ -222,17 +233,17 @@ if __name__=="__main__":
                         else:
                             seleccionerrorea="solo esta permitido introducir 1 o 2. intentalo de nuevo\n"
                             print (seleccionerrorea)
-                    if total(manojugador)>16:
+                    if crear_total(manojugador)>16:
                         distribuidor=False
-                    elif total (manojugador)<16:
+                    elif crear_total (manojugador)<16:
                         manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
-                    elif total(distribuidor)>16:
+                    elif crear_total(distribuidor)>16:
                         totaljugador=False
-                    elif total(distribuidor)<16:
+                    elif crear_total(distribuidor)<16:
                         manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
-                    if total(manojugador)>=21:
+                    if crear_total(manojugador)>=21:
                         jugador=False
-                    elif total(manodistribuidor)>=21:
+                    elif crear_total(manodistribuidor)>=21:
                         distribuidor=False
                 resultadomultijugador=crear_resultadomultijugador(manojugador,manodistribuidor)
                 print (resultadomultijugador)
