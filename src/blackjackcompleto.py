@@ -19,13 +19,15 @@ def crear_cubierta(numeros,letras):
 def repartir_cartasjugador(jugador,cubierta):
     carta=random.choice(cubierta)
     jugador+=carta
-    cubierta=cubierta.replace(carta,"",1)
+    crearcubierta=str(cubierta)
+    cubierta=crearcubierta.replace(carta,"",1)
     return jugador,cubierta
 
 def repartir_cartasdistribuidor(distribuidor,cubierta):
     carta=random.choice(cubierta)
     distribuidor+=carta
-    cubierta=cubierta.replace(carta,"",1)
+    crearcubierta=str(cubierta)
+    cubierta=crearcubierta.replace(carta,"",1)
     return distribuidor,cubierta
 
 # checkeo del ganador
