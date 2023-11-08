@@ -11,43 +11,51 @@ def iniciar_modo(modo):
         return mododejuego
     raise ValueError (str(modo)+": solo se permite introducir 1 o 2. intentalo de nuevo: ")
 
-# reparto de cartas
-def repartir_cartasjugador(turno):
-    carta=random.choice(cubierta)
-    turno.append(carta)
-    cubierta.remove(carta)
-    return turno
+def crear_cubierta(numeros,letras):
+    cubierta=(numeros+letras)*4
+    return cubierta
 
-def repartir_cartasdistribuidor(turno):
+# Reparto de cartas
+def repartir_cartasjugador(jugador,cubierta):
     carta=random.choice(cubierta)
-    turno.append(carta)
-    cubierta.remove(carta)
-    return turno
+    jugador+=carta
+    cubierta=cubierta.replace(carta,"",1)
+    return jugador,cubierta
+
+def repartir_cartasdistribuidor(distribuidor,cubierta):
+    carta=random.choice(cubierta)
+    distribuidor+=carta
+    cubierta=cubierta.replace(carta,"",1)
+    return distribuidor,cubierta
 
 # checkeo del ganador
 def revelar_mano_distribuidor(manodistribuidor):
     if len(manodistribuidor)==2:
-        return manodistribuidor[0]
+        revelacionmanodistribuidor= manodistribuidor[0]
+        return revelacionmanodistribuidor
     elif len(manodistribuidor)>2:
-        return manodistribuidor[0], manodistribuidor[1]
+        revelacionmanodistribuidor=manodistribuidor[0],manodistribuidor[1]
+        return revelacionmanodistribuidor
 
 def revelar_mano_jugador(manojugador):
     if len(manojugador)==2:
-        return manojugador[0]
+        revelacionmanojugador=manojugador[0]
+        return revelacionmanojugador
     elif len(manojugador)>2:
-        return manojugador[0], manojugador[1]
+        revelacionmanojugador=manojugador[0],manojugador[1]
+        return revelacionmanojugador
 
-# claculo del total de cada mano
 def total(turno):
     total=0
-    cara=["J", "K", "Q"]
-    for carta in turno:
-        if carta in range(1,11):
-            total += carta
+    cara="JQK"
+    for i in turno:
+        carta=str(i)
+        if carta.isdigit():
+            total+=int(carta)
         elif carta in cara:
-            total += 10
+            total+=10
         else:
-            if total > 11:
+            if total>11:
                 total+=1
             else:
                 total+=11
@@ -115,15 +123,17 @@ if __name__=="__main__":
                 jugador=True
                 distribuidor=True
                 # cubierta de las cartas y cartas del jugador y del distribuidor
-                cubierta = [2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A", "J", "Q", "K", "A", "J", "Q", "K", "A", "J", "Q", "K", "A"]
-                manojugador=[]
-                manodistribuidor=[]
+                numeros="23456789"
+                letras="JQKA"
+                cubierta=crear_cubierta(numeros,letras)
+                manojugador=""
+                manodistribuidor=""
                 # bucle del juego
                 for i in range(2):
                     # el distribuidor coje dos cartas
-                    turno=repartir_cartasjugador(manodistribuidor)
+                    manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
                     # el jugador coje dos cartas
-                    turno=repartir_cartasdistribuidor(manojugador)
+                    manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
                 # se revela la mano del distribuidor
                 while jugador or distribuidor:
                     revelacionmanodistribuidor=revelar_mano_distribuidor(manodistribuidor)
@@ -141,7 +151,7 @@ if __name__=="__main__":
                             jugador=False
                         elif seleccion=='2':
                             # el jugador coje una carta
-                            turno=repartir_cartasjugador(manojugador)
+                            manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)                          
                         else:
                             seleccionerrorea="solo esta permitido introducir 1 o 2. intentalo de nuevo\n"
                             print (seleccionerrorea)
@@ -150,7 +160,8 @@ if __name__=="__main__":
                         distribuidor=False
                     else:
                         # el distribuidor coje una carta (se repite el proceso de reparto)
-                        turno=repartir_cartasdistribuidor(manodistribuidor)
+                        manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
+                    # el jugador coje dos cartas
                     if total(manojugador)>=21:
                         jugador=False
                     elif total(manodistribuidor)>=21:
@@ -165,15 +176,17 @@ if __name__=="__main__":
                 # nombre del distribuidor
                 distribuidor=input("nombre del distribuidor: ")
                 # cubierta de las cartas y cartas del jugador y del distribuidor
-                cubierta = [2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A", "J", "Q", "K", "A", "J", "Q", "K", "A", "J", "Q", "K", "A"]
-                manojugador=[]
-                manodistribuidor=[]
+                numeros="23456789"
+                letras="JQKA"
+                cubierta=crear_cubierta(numeros,letras)
+                manojugador=""
+                manodistribuidor=""
                 # bucle del juego
                 for i in range(2):
                     # el distribuidor coje dos cartas
-                    turno=repartir_cartasjugador(manodistribuidor)
+                    manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
                     # el jugador coje dos cartas
-                    turno=repartir_cartasdistribuidor(manojugador)
+                    manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
                 while jugador or distribuidor:
                     # se revela la mano del jugador
                     revelacionmanojugador=revelar_mano_jugador(manojugador)
@@ -187,7 +200,7 @@ if __name__=="__main__":
                             distribuidor=False
                         elif selecciondistribuidor=='2':
                             # el distribuidor coje una carta
-                            turno=repartir_cartasjugador(manojugador)
+                            manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
                         else:
                             seleccionerrorea="solo esta permitido introducir 1 o 2. intentalo de nuevo\n"
                             print (seleccionerrorea)
@@ -203,18 +216,18 @@ if __name__=="__main__":
                             jugador=False
                         elif seleccionjugador=='2':
                             # el jugador coje una carta
-                            turno=repartir_cartasjugador(manojugador)
+                            manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
                         else:
                             seleccionerrorea="solo esta permitido introducir 1 o 2. intentalo de nuevo\n"
                             print (seleccionerrorea)
                     if total(manojugador)>16:
                         distribuidor=False
                     elif total (manojugador)<16:
-                        turno=repartir_cartasdistribuidor(manodistribuidor)
+                        manodistribuidor,cubierta=repartir_cartasdistribuidor(manodistribuidor,cubierta)
                     elif total(distribuidor)>16:
                         totaljugador=False
                     elif total(distribuidor)<16:
-                        turno=repartir_cartasjugador(manojugador)
+                        manojugador,cubierta=repartir_cartasjugador(manojugador,cubierta)
                     if total(manojugador)>=21:
                         jugador=False
                     elif total(manodistribuidor)>=21:
